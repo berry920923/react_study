@@ -1,42 +1,63 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
 function App() {
 
-  let post = '오늘의 저녁메뉴는!!'
-  let [저녁메뉴 , 저녁메뉴변경] = useState(['김치찌개', '교촌치킨', '비빔면'])
-  let [따봉, 따봉변경] = useState(0);
+  let post = '오늘의 메뉴는?';
+  let [메뉴추천, b] = useState(['오늘의 저녁 메뉴 추천', '내일의 저녁 메뉴 추천', '모레의 저녁 메뉴 추천']);
+  let [like, likeSet] = useState(0);
+  let [menu, menuSet] = useState('안먹어!!');
 
   return (
     <div className="App">
+
       <div className="black-nav">
+        <h4>오늘의 저녁 메뉴</h4>
+      </div>
+
+      <button onClick={() => {
+        let copy2 = [...메뉴추천];
+        copy2 = copy2.sort();
+        b(copy2);
+      }}>정렬</button>
+
+      <button onClick={() => {
+        let copy = [...메뉴추천];
+        copy[0] = '새벽 메뉴 추천';
+        b(copy);
+      }}>마음이 바꼇어!!</button>
+
+      <div className='list'>
+        <h4>{ post } <span onClick={ () => { likeSet(like+1)}}>👍</span> {like} </h4>
+        <p>{메뉴추천[0]}</p>
+      </div>
+
+      <div className='list'>
+        <h4>{ menu }</h4>
+        <p>{메뉴추천[1]}</p>
+      </div>
+
+      <div className='list'>
         <h4>{ post }</h4>
+        <p>{메뉴추천[2]}</p>
       </div>
 
-      <button onClick={ () => {
-        let copy = [...저녁메뉴];
-        copy[0] = 'bbq';
-        저녁메뉴변경(copy)
-      }}>메뉴변경</button>
-
-      <div className='list'>
-        <h4>{ 저녁메뉴[0] } <span onClick={ () => { 따봉변경(따봉+1) } }>👍</span> {따봉} </h4>
-        <p>{ post }</p>
-      </div>
-
-      <div className='list'>
-      <h4>{ 저녁메뉴[1] }</h4>
-        <p>{ post }</p>
-      </div>
-
-      <div className='list'>
-      <h4>{ 저녁메뉴[2] }</h4>
-        <p>{ post }</p>
-      </div>
+      <Modal/>
       
     </div>
   );
 }
+
+function Modal() {
+  return(
+    <div className='modal'>
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  )
+}
+
+
 
 export default App;
